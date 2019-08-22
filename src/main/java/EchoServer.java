@@ -12,27 +12,18 @@ public class EchoServer {
     }
 
     public void start() {
-        try {
+        try (
             ServerSocket serverSocket = new ServerSocket(4242);
 
-            while(true) {
-                Socket socket = serverSocket.accept();
-                PrintWriter sendResponse = new PrintWriter(socket.getOutputStream());
-
-                String clientMessage;
-                while ((clientMessage = getClientData(socket)) != null) {
-                        System.out.println("Client MESSAGE: " + clientMessage);
-//                        sendResponse.println(clientMessage);
-                    }
-
-//                PrintWriter writer = new PrintWriter(socket.getOutputStream());
-//                String text_input = "Hello World";
-//                writer.println(text_input);
-//                writer.close();
-//                System.out.println(text_input);
+            Socket socket = serverSocket.accept();
+            PrintWriter sendResponse = new PrintWriter(socket.getOutputStream(), true);
+        ) {
+            String clientMessage;
+            while ((clientMessage = getClientData(socket)) != null) {
+                System.out.println("Client message received by server: " + clientMessage);
+                sendResponse.println(clientMessage);
             }
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
@@ -44,10 +35,8 @@ public class EchoServer {
                     new InputStreamReader(socket.getInputStream()));
             clientMessage = getInput.readLine();
             return clientMessage;
-
         } catch (IOException ex) {
             ex.printStackTrace();
-
         }
         return "";
     }
