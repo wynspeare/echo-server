@@ -23,8 +23,6 @@ public class EchoClient {
                     System.out.println("Echo from server: " + serverResponse);
                 }
             }
-
-
         } catch(IOException ex) {
             ex.printStackTrace();
         }

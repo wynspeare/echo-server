@@ -4,7 +4,6 @@ public class ServerSocketWrapperSpy implements SocketWrapper {
     private BufferedReader input;
     private PrintWriter output;
     private boolean createAndListenCalled = false;
-    private String receivedData;
     private String sentData;
     private boolean closeCalled = false;
 
@@ -19,8 +18,7 @@ public class ServerSocketWrapperSpy implements SocketWrapper {
     }
     public String receiveData() {
         try {
-            receivedData = input.readLine();
-            return receivedData;
+            return input.readLine();
         } catch (IOException e) {
             System.err.println("Error reading mock socket input");
         }
@@ -40,9 +38,6 @@ public class ServerSocketWrapperSpy implements SocketWrapper {
     }
     public String getSentData() {
         return sentData;
-    }
-    public String getReceivedData() {
-        return receivedData;
     }
     public boolean wasCloseCalled() {
         return closeCalled;

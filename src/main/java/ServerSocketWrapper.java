@@ -23,7 +23,6 @@ public class ServerSocketWrapper implements SocketWrapper {
     public String receiveData() {
         try {
             String clientMessage = input.readLine();
-            System.out.println("Client message received by server: " + clientMessage);
             return clientMessage;
         } catch (IOException ex) {
             ex.printStackTrace();
