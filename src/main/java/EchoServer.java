@@ -1,48 +1,20 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.ServerSocket;
-import java.net.Socket;
-
 public class EchoServer {
+    private SocketWrapper socket;
 
-    public String greeting() {
-        return "HELLO... Hello... hello!";
+    public EchoServer(SocketWrapper socket) {
+        this.socket = socket;
     }
 
-    public void start() {
-        try (
-            ServerSocket serverSocket = new ServerSocket(4242);
-
-            Socket socket = serverSocket.accept();
-            PrintWriter sendResponse = new PrintWriter(socket.getOutputStream(), true);
-        ) {
-            String clientMessage;
-            while ((clientMessage = getClientData(socket)) != null) {
-                System.out.println("Client message received by server: " + clientMessage);
-                sendResponse.println(clientMessage);
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    public String getClientData(Socket socket) {
-        String clientMessage;
-        try {
-            BufferedReader getInput = new BufferedReader(
-                    new InputStreamReader(socket.getInputStream()));
-            clientMessage = getInput.readLine();
-            return clientMessage;
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        return "";
+    public void start(int port) {
+        socket.createAndListen(port);
+        String clientMessage = socket.receiveData();
+        socket.sendData(clientMessage);
+//        socket.close();
     }
 
     public static void main(String[] args) {
-        EchoServer server = new EchoServer();
-        server.start();
+        ServerSocketWrapper serverWrapper = new ServerSocketWrapper();
+        EchoServer server = new EchoServer(serverWrapper);
+        server.start(4242);
     }
 }

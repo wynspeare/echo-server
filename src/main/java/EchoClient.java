@@ -12,11 +12,19 @@ public class EchoClient {
         ) {
             String message;
             while ((message = getConsoleInput()) != null) {
+                if (message == "CLOSE") {
+                    s.close();
+                    reader.close();
+                    writer.close();
+                } else {
 //            while ((message = getConsoleInput()).length() > 0) {
-                writer.println(message);
-                String serverResponse = reader.readLine();
-                System.out.println("Echo from server: " + serverResponse);
+                    writer.println(message);
+                    String serverResponse = reader.readLine();
+                    System.out.println("Echo from server: " + serverResponse);
+                }
             }
+
+
         } catch(IOException ex) {
             ex.printStackTrace();
         }
