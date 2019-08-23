@@ -21,11 +21,10 @@ public class EchoServerTest {
         EchoServer echoServer = new EchoServer(socketWrapper);
         echoServer.start(PORT);
 
-        assertEquals("echo", socketWrapper.getReceivedData());
 
         assertTrue(socketWrapper.wasCreateAndListenCalled());
         assertEquals("ECHO", socketWrapper.getSentData());
-//        assertTrue(socketWrapper.wasCloseCalled());
+        assertTrue(socketWrapper.wasCloseCalled());
     }
 
 }
