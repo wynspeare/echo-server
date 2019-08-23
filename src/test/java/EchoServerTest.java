@@ -1,7 +1,5 @@
 import org.junit.Test;
-
 import java.io.*;
-
 import static org.junit.Assert.*;
 
 public class EchoServerTest {
@@ -21,10 +19,8 @@ public class EchoServerTest {
         EchoServer echoServer = new EchoServer(socketWrapper);
         echoServer.start(PORT);
 
-
         assertTrue(socketWrapper.wasCreateAndListenCalled());
         assertEquals("ECHO", socketWrapper.getSentData());
         assertTrue(socketWrapper.wasCloseCalled());
     }
-
 }
