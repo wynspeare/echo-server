@@ -1,15 +1,19 @@
 import org.junit.Test;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.PrintWriter;
+import java.io.StringReader;
+import java.io.StringWriter;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class EchoClientTest {
 
     private static final int PORT = 4242;
 
     @Test
-    public void clientTestDataIsSendAndEchoedBack() {
+    public void clientTestDataIsSentAndEchoedBack() {
 
         BufferedReader reader = new BufferedReader(
                 new StringReader("echo\n"));

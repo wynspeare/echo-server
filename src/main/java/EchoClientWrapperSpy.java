@@ -1,12 +1,13 @@
-import java.io.*;
-import java.net.Socket;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class EchoClientWrapperSpy implements ClientWrapper {
 
     private PrintWriter writer;
     private BufferedReader reader;
     private boolean createCalled = false;
-    private String receivedData;
+    private String sentData;
     private boolean closeCalled = false;
 
     public EchoClientWrapperSpy(
@@ -19,7 +20,7 @@ public class EchoClientWrapperSpy implements ClientWrapper {
         createCalled = true;
     }
 
-    public String getData() {
+    public String getUserInput() {
         try {
             return reader.readLine();
         } catch (IOException e) {
@@ -28,18 +29,13 @@ public class EchoClientWrapperSpy implements ClientWrapper {
         return "";
     }
 
-    public String receiveData() {
-        try {
-            return reader.readLine();
-        } catch (IOException e) {
-            System.err.println("Error reading mock socket input");
-        }
-        return "";
-    }
-
     public void sendData(String data) {
         writer.println(data.toUpperCase());
-        receivedData = data.toUpperCase();
+        sentData = data.toUpperCase();
+    }
+
+    public String receiveData() {
+        return sentData;
     }
 
     public void close() {
@@ -49,7 +45,7 @@ public class EchoClientWrapperSpy implements ClientWrapper {
         return createCalled;
     }
     public String getReceivedData() {
-        return receivedData;
+        return sentData;
     }
     public boolean wasCloseCalled() {
         return closeCalled;

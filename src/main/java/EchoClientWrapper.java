@@ -1,5 +1,8 @@
-import java.io.*;
-import java.net.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
 
 public class EchoClientWrapper implements ClientWrapper {
     private Socket socket;
@@ -18,7 +21,7 @@ public class EchoClientWrapper implements ClientWrapper {
         }
     }
 
-    public String getData() {
+    public String getUserInput() {
         String consoleInput;
         BufferedReader consoleReader =
                 new BufferedReader(new InputStreamReader(System.in));

@@ -8,7 +8,7 @@ public class EchoClient {
     public void start(int port) {
         client.create(port);
         String messageToSend;
-        while ((messageToSend = client.getData()) != null) {
+        while ((messageToSend = client.getUserInput()) != null) {
             client.sendData(messageToSend);
             client.receiveData();
         }

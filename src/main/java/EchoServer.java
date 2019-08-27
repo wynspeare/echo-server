@@ -6,14 +6,17 @@ public class EchoServer {
     }
 
     public void start(int port) {
-        socket.createAndListen(port);
+        try {
+            socket.createAndListen(port);
 
-        String clientMessage;
-        while ((clientMessage = socket.receiveData()) != null) {
-            System.out.println("Client message received by server: " + clientMessage);
-            socket.sendData(clientMessage);
+            String clientMessage;
+            while ((clientMessage = socket.receiveData()) != null) {
+                System.out.println("Client message received by server: " + clientMessage);
+                socket.sendData(clientMessage);
+            }
+        } finally {
+            socket.close();
         }
-        socket.close();
     }
 
     public static void main(String[] args) {
