@@ -1,4 +1,6 @@
 import org.junit.Test;
+import server.EchoServer;
+import server.ServerSocketWrapperSpy;
 
 import java.io.BufferedReader;
 import java.io.PrintWriter;

@@ -1,3 +1,5 @@
+package server;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -10,28 +12,44 @@ public class ServerSocketWrapper implements SocketWrapper {
     private Socket socket;
     private BufferedReader input;
     private PrintWriter output;
-    private String clientMessage;
+//    private String clientMessage;
 
     public void createAndListen(int port) {
-        try {
-            serverSocket = new ServerSocket(port);
-            System.out.println("Awaiting connection");
+//        try {
+//            serverSocket = new ServerSocket(port);
+//            System.out.println("Awaiting connection");
+////            while (clientMessage != "close") {
+//
+////                socket = serverSocket.accept();
+////                System.out.println("Accepted connection");
+////
+////                input = new BufferedReader(
+////                        new InputStreamReader(socket.getInputStream()));
+////                output = new PrintWriter(socket.getOutputStream(), true);
+//
+//        } catch (IOException ex) {
+//            ex.printStackTrace();
+//        }
+    }
 
+    public void accept(ServerSocket serverSocket) {
+        this.serverSocket = serverSocket;
+        try {
             socket = serverSocket.accept();
             System.out.println("Accepted connection");
 
             input = new BufferedReader(
                     new InputStreamReader(socket.getInputStream()));
             output = new PrintWriter(socket.getOutputStream(), true);
+
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-
     }
 
     public String receiveData() {
         try {
-             clientMessage = input.readLine();
+             String clientMessage = input.readLine();
             return clientMessage;
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -48,7 +66,7 @@ public class ServerSocketWrapper implements SocketWrapper {
             output.close();
             input.close();
             socket.close();
-            serverSocket.close();
+//            serverSocket.close();
         } catch (IOException ex) {
             ex.printStackTrace();
         }

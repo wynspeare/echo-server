@@ -1,3 +1,5 @@
+import client.EchoClient;
+import client.EchoClientWrapperSpy;
 import org.junit.Test;
 
 import java.io.BufferedReader;
