@@ -8,36 +8,13 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class ServerSocketWrapper implements SocketWrapper {
-    private ServerSocket serverSocket;
-    private Socket socket;
+//    private ServerSocket serverSocket;
+    public Socket socket;
     private BufferedReader input;
     private PrintWriter output;
-//    private String clientMessage;
 
-    public void createAndListen(int port) {
-//        try {
-//            serverSocket = new ServerSocket(port);
-//            System.out.println("Awaiting connection");
-////            while (clientMessage != "close") {
-//
-////                socket = serverSocket.accept();
-////                System.out.println("Accepted connection");
-////
-////                input = new BufferedReader(
-////                        new InputStreamReader(socket.getInputStream()));
-////                output = new PrintWriter(socket.getOutputStream(), true);
-//
-//        } catch (IOException ex) {
-//            ex.printStackTrace();
-//        }
-    }
-
-    public void accept(ServerSocket serverSocket) {
-        this.serverSocket = serverSocket;
+    public void accept(Socket socket) {
         try {
-            socket = serverSocket.accept();
-            System.out.println("Accepted connection");
-
             input = new BufferedReader(
                     new InputStreamReader(socket.getInputStream()));
             output = new PrintWriter(socket.getOutputStream(), true);
