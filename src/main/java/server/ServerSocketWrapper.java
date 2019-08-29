@@ -8,13 +8,13 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class ServerSocketWrapper implements SocketWrapper {
-//    private ServerSocket serverSocket;
-    public Socket socket;
     private BufferedReader input;
     private PrintWriter output;
 
-    public void accept(Socket socket) {
+    public void acceptConnection(ServerSocket serverSocket) {
         try {
+            Socket socket = serverSocket.accept();
+            System.out.println("Accepted connection");
             input = new BufferedReader(
                     new InputStreamReader(socket.getInputStream()));
             output = new PrintWriter(socket.getOutputStream(), true);
@@ -42,8 +42,6 @@ public class ServerSocketWrapper implements SocketWrapper {
         try {
             output.close();
             input.close();
-            socket.close();
-//            serverSocket.close();
         } catch (IOException ex) {
             ex.printStackTrace();
         }

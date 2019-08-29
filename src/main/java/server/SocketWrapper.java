@@ -1,11 +1,9 @@
 package server;
 
 import java.net.ServerSocket;
-import java.net.Socket;
 
 public interface SocketWrapper {
-//    void createAndListen(int port);
-    void accept(Socket Socket);
+    void acceptConnection(ServerSocket serverSocket);
     String receiveData();
     void sendData(String data);
     void close();

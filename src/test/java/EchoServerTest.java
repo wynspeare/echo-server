@@ -2,10 +2,8 @@ import org.junit.Test;
 import server.EchoServer;
 import server.ServerSocketWrapperSpy;
 
-import java.io.BufferedReader;
-import java.io.PrintWriter;
-import java.io.StringReader;
-import java.io.StringWriter;
+import java.io.*;
+import java.net.ServerSocket;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -24,11 +22,18 @@ public class EchoServerTest {
         ServerSocketWrapperSpy socketWrapper =
                 new ServerSocketWrapperSpy (input, output);
 
-        EchoServer echoServer = new EchoServer(socketWrapper);
-        echoServer.start(PORT);
+        try {
+            ServerSocket serverSocket = new ServerSocket(4242);
+            EchoServer echoServer = new EchoServer(serverSocket);
 
-        assertTrue(socketWrapper.wasCreateAndListenCalled());
-        assertEquals("ECHO", socketWrapper.getSentData());
-        assertTrue(socketWrapper.wasCloseCalled());
+            Runnable runnable = echoServer.createRunnable(socketWrapper);
+            runnable.run();
+
+            assertTrue(socketWrapper.wasCreateAndListenCalled());
+            assertEquals("ECHO", socketWrapper.getSentData());
+            assertTrue(socketWrapper.wasCloseCalled());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

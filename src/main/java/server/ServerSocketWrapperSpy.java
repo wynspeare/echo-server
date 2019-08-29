@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
-import java.net.Socket;
 
 public class ServerSocketWrapperSpy implements SocketWrapper {
     private BufferedReader input;
@@ -18,13 +17,9 @@ public class ServerSocketWrapperSpy implements SocketWrapper {
         this.input = input;
         this.output = output;
     }
-    public void accept(Socket serverSocket) {
-
+    public void acceptConnection(ServerSocket serverSocket) {
+        createAndListenCalled = true;
     }
-
-//    public void createAndListen(int port) {
-//        createAndListenCalled = true;
-//    }
 
     public String receiveData() {
         try {

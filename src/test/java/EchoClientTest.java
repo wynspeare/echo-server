@@ -29,6 +29,22 @@ public class EchoClientTest {
 
         assertTrue(clientWrapper.wasCreateCalled());
         assertEquals("ECHO", clientWrapper.getReceivedData());
+    }
+
+    @Test
+    public void clientCanBeClosed() {
+
+        BufferedReader reader = new BufferedReader(
+                new StringReader("echo\nclose\n"));
+        PrintWriter writer = new PrintWriter(new StringWriter(), true);
+
+        EchoClientWrapperSpy clientWrapper =
+                new EchoClientWrapperSpy (reader, writer);
+
+        EchoClient echoClient = new EchoClient(clientWrapper);
+        echoClient.start(PORT);
+
+        assertTrue(clientWrapper.wasCreateCalled());
         assertTrue(clientWrapper.wasCloseCalled());
     }
 
