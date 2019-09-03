@@ -3,7 +3,7 @@ package server;
 import java.io.IOException;
 
 public class EchoServer {
-    private IServerSocketWrapper serverSocket;
+    public IServerSocketWrapper serverSocket;
 
     public EchoServer(IServerSocketWrapper serverSocket) {
         this.serverSocket = serverSocket;
@@ -14,7 +14,6 @@ public class EchoServer {
         EchoServer server = new EchoServer(serverSocketWrapper);
         server.serve();
     }
-
 
     public Runnable createRunnable() throws IOException {
         return new ServerRunnable(serverSocket.acceptConnection());

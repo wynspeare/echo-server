@@ -9,11 +9,12 @@ public class ServerSocketWrapper implements IServerSocketWrapper {
 
     public ServerSocketWrapper(int port) throws IOException {
         this.serverSocket = new ServerSocket(port);
+        System.out.println("Awaiting connection");
     }
 
     public ISocketWrapper acceptConnection() throws IOException {
         Socket socket = serverSocket.accept();
-        System.out.println("WOOOW! Accepted connection");
+        System.out.println("Accepted connection");
         return new SocketWrapper(socket);
     }
 
