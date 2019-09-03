@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 
-public class ServerSocketWrapperSpy implements SocketWrapper {
+public class ServerSocketWrapperSpy implements ISocketWrapper {
     private BufferedReader input;
     private PrintWriter output;
     private boolean createAndListenCalled = false;

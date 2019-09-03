@@ -1,40 +1,28 @@
 package server;
 
 import java.io.IOException;
-import java.net.ServerSocket;
 
 public class EchoServer {
-    private static ServerSocket serverSocket;
+    private IServerSocketWrapper serverSocket;
 
-    public EchoServer(ServerSocket serverSocket) {
+    public EchoServer(IServerSocketWrapper serverSocket) {
         this.serverSocket = serverSocket;
     }
 
-    public static void main(String[] args) {
-        start(4242);
-        EchoServer server = new EchoServer(serverSocket);
+    public static void main(String[] args) throws Exception {
+        IServerSocketWrapper serverSocketWrapper = new ServerSocketWrapper(4242);
+        EchoServer server = new EchoServer(serverSocketWrapper);
         server.serve();
     }
 
-    public static void start(int port) {
-        try {
-            serverSocket = new ServerSocket(4242);
-            System.out.println("Awaiting connection");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+    public Runnable createRunnable() throws IOException {
+        return new ServerRunnable(serverSocket.acceptConnection());
     }
 
-    public Runnable createRunnable(SocketWrapper serverWrapper) {
-        serverWrapper.acceptConnection(serverSocket);
-        return new ServerRunnable(serverWrapper);
-    }
-
-    public void serve() {
+    public void serve() throws IOException {
         while (!serverSocket.isClosed()) {
-            ServerSocketWrapper serverWrapper = new ServerSocketWrapper();
-
-            Thread thread = new Thread(createRunnable(serverWrapper));
+            Thread thread = new Thread(createRunnable());
             thread.start();
         }
     }

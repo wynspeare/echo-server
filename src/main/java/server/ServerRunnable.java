@@ -1,9 +1,9 @@
 package server;
 
 public class ServerRunnable implements Runnable {
-    private SocketWrapper socketWrapper;
+    private ISocketWrapper socketWrapper;
 
-    public ServerRunnable(SocketWrapper socketWrapper) {
+    public ServerRunnable(ISocketWrapper socketWrapper) {
         this.socketWrapper = socketWrapper;
     }
 
