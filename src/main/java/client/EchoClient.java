@@ -1,9 +1,9 @@
 package client;
 
 public class EchoClient {
-    private ClientWrapper client;
+    private IClientWrapper client;
 
-    public EchoClient(ClientWrapper client) {
+    public EchoClient(IClientWrapper client) {
         this.client = client;
     }
 

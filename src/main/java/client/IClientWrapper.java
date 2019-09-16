@@ -1,6 +1,6 @@
 package client;
 
-public interface ClientWrapper {
+public interface IClientWrapper {
   void create(int port);
   String getUserInput();
   void sendData(String data);

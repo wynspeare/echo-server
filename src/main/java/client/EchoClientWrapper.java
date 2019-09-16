@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class EchoClientWrapper implements ClientWrapper {
+public class EchoClientWrapper implements IClientWrapper {
     private Socket socket;
     private PrintWriter writer;
     private BufferedReader reader;

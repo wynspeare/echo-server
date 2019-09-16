@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class EchoClientWrapperSpy implements ClientWrapper {
+public class EchoClientWrapperSpy implements IClientWrapper {
 
     private PrintWriter writer;
     private BufferedReader reader;
